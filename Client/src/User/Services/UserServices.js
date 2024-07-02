@@ -4,7 +4,7 @@ export const axiosClient = axios.create({
     baseURL: 'http://localhost:8000/user/'
 });
 
-export const getUser = async () => {
+export const getUsers = async () => {
     try {
         const response = await axiosClient.get('user/');
         return response.data;
