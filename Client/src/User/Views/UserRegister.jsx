@@ -17,7 +17,7 @@ export default function UserRegister() {
                 email: data.email,
                 password: data.password1
             }
-            const newUser = await createUser(user);
+            const newUser = await createUser(user, user.email);
             console.log(newUser);
         }
     });

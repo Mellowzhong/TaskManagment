@@ -1,10 +1,6 @@
-from django.urls import path, include
-from rest_framework import routers
-from .views import UserViewSet
-
-router = routers.DefaultRouter()
-router.register('user', UserViewSet)
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('apiV1/<str:email>/', views.UserByEmail.as_view(), name='user-by-email'),
 ]

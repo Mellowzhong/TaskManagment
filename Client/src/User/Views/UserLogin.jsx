@@ -1,6 +1,6 @@
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
-import { getUsers } from '../Services/UserServices';
+import { getUserByEmail } from '../Services/UserServices';
 
 export default function UserLogin() {
     const [cookies, setCookie] = useCookies(['user']);
@@ -8,8 +8,9 @@ export default function UserLogin() {
 
     const onSubmit = handleSubmit(async (data) => {
         console.log('login submitted');
-        const users = await getUsers();
-        const user = users.find(user => user.email === data.email);
+        const user = await getUserByEmail(data.email);
+        console.log('user fetched');
+        console.log(user);
         setCookie('user', user, { path: '/user' });
         console.log(cookies.user);
     });
