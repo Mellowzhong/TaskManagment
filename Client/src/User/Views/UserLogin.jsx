@@ -10,27 +10,36 @@ export default function UserLogin() {
 
     const onSubmit = handleSubmit(async (data) => {
         const user = await getUserByEmail(data.email, data.password);
-        console.log(user);
 
         if (user === null) {
             console.log('user not found');
         } else {
+            console.log('user found');
             setCookie('user', user, { path: '/user' });
-            console.log('login submitted');
             navigate('/task');
         }
     });
+
+    const onClickRegister = () => {
+        navigate('/register');
+    }
 
     return (
         <div>
             <h1>Login</h1>
             <form onSubmit={onSubmit}>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="emailId" {...register("email", { required: true })} />
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" {...register("password", { required: true })} />
+                <label name="email">
+                    Email
+                    <input type="email" name="email" id="emailId" {...register("email", { required: true })} />
+                </label>
+
+                <label name="password">
+                    Password
+                    <input type="password" name="password" id="password" {...register("password", { required: true })} />
+                </label>
                 <button type="submit">Submit</button>
             </form>
+            <button type='submint' onClick={onClickRegister} > Register </button>
         </div>
     );
 }

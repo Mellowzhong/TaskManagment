@@ -3,7 +3,6 @@ from .serializer import UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.hashers import check_password
 from rest_framework import status
 
 class UserView(APIView):
@@ -15,14 +14,12 @@ class UserView(APIView):
 
     def get(self, request, identifier, format=None):
         user = self.get_user(identifier)
-        
-        # Get the password from query parameters
+    
         password = request.query_params.get('password')
         
         if not password:
             return Response({"error": "Password is required"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Check if the provided password matches the user's password
+
         if password == user.password:
             serializer = UserSerializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)
