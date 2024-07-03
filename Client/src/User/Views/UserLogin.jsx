@@ -1,18 +1,24 @@
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { getUserByEmail } from '../Services/UserServices';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserLogin() {
-    const [cookies, setCookie] = useCookies(['user']);
+    const [, setCookie] = useCookies(['user']);
     const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log('login submitted');
-        const user = await getUserByEmail(data.email);
-        console.log('user fetched');
+        const user = await getUserByEmail(data.email, data.password);
         console.log(user);
-        setCookie('user', user, { path: '/user' });
-        console.log(cookies.user);
+
+        if (user === null) {
+            console.log('user not found');
+        } else {
+            setCookie('user', user, { path: '/user' });
+            console.log('login submitted');
+            navigate('/task');
+        }
     });
 
     return (

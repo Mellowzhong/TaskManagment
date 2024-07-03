@@ -1,7 +1,7 @@
 import './App.css'
 import UserRegister from './User/Views/UserRegister'
 import UserLogin from './User/Views/UserLogin'
-import TaskView from './Task/Views/TaskView'
+// import TaskView from './Task/Views/TaskView'
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
     <div>
       <UserRegister></UserRegister>
       <UserLogin></UserLogin>
-      <TaskView></TaskView>
+      {/* <TaskView></TaskView> */}
     </div>
   )
 }

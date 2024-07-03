@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import re_path
 from . import views
 
 urlpatterns = [
-    path('apiV1/<str:email>/', views.UserByEmail.as_view(), name='user-by-email'),
+    re_path('^(?P<identifier>[\w.-@]+)/$', views.UserView.as_view(), name='user-detail'),
 ]
