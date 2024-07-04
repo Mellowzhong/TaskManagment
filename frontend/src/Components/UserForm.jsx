@@ -2,29 +2,28 @@ import { useState } from "react";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Form({ route, method }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        setLoading(true);
         e.preventDefault();
         try {
             const response = await api.post(route, { username, password });
             if (response.status === 200 && method === "login") {
-                localStorage.setItem(ACCESS_TOKEN, response.data.access);
-                localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
+                setCookie(ACCESS_TOKEN, response.data.access, { path: '/' });
+                setCookie(REFRESH_TOKEN, response.data.refresh, { path: '/' });
+
                 navigate("/");
             } else {
                 navigate("/login");
             }
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
         }
     };
 

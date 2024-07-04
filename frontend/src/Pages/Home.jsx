@@ -15,7 +15,7 @@ function Home() {
         api
             .get("api/notes/")
             .then((res) => res.data)
-            .then((data) => { setNotes(data), console.log(data) })
+            .then((data) => setNotes(data))
             .catch((err) => console.error(err));
     };
 
