@@ -1,13 +1,13 @@
+import api from '../api'
 import { Navigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode'
-import api from '../api'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants'
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
-function ProtectedRoute({ children }) {
+export default function ProtectedRoute({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
-    const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
+    const [cookies, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
 
     useEffect(() => {
         auth().catch(() => setIsAuthenticated(false))
@@ -55,5 +55,3 @@ function ProtectedRoute({ children }) {
 
     return isAuthenticated ? children : <Navigate to="/login" />
 }
-
-export default ProtectedRoute;

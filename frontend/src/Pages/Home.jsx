@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
 import api from "../api";
-import Note from "../Components/Note";
+import Note from "../Note/Views/Note";
+import NoteForm from "../Note/Components/NoteForm";
+import { useState, useEffect } from "react";
 
-function Home() {
+export default function Home() {
     const [notes, setNotes] = useState([]);
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
 
     useEffect(() => {
         getNotes();
@@ -30,18 +29,6 @@ function Home() {
             .catch((err) => console.error(err));
     };
 
-    const createNote = async (e) => {
-        e.preventDefault();
-        api
-            .post("api/notes/", { title, content })
-            .then((res) => {
-                if (res.status === 201) alert("Note created");
-                else alert("Error creating note");
-                getNotes();
-            })
-            .catch((err) => console.error(err));
-    };
-
     return (
         <div>
             <div>
@@ -50,31 +37,8 @@ function Home() {
                     <Note key={note.id} note={note} onDelete={deleteNote} />
                 ))}
             </div>
-            <div>
-                <h1>Create a note</h1>
-                <form onSubmit={createNote}>
-                    <label>
-                        Title:
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <label>
-                        Content:
-                        <textarea
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <button type="submit">Create</button>
-                </form>
-            </div>
+            <h1>Create a note</h1>
+            <NoteForm />
         </div>
     );
 }
-
-export default Home;

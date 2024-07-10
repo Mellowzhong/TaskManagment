@@ -1,13 +1,13 @@
+import api from "../../api";
 import { useState } from "react";
-import api from "../api";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-function Form({ route, method }) {
+export default function Form({ route, method }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
+    const [cookies, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -35,24 +35,29 @@ function Form({ route, method }) {
             <label>
                 Username:
                 <input
+                    id="username"
+                    autoComplete="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="username"
                 />
             </label>
+            <br />
             <label>
                 Password:
                 <input
+                    id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="password"
                 />
             </label>
-            <button type="submit">{tittle}</button>
+            <br />
+            <button type="submit">
+                {tittle}
+            </button>
         </form>
     );
 }
-
-export default Form;

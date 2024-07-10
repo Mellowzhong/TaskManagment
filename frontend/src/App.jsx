@@ -1,26 +1,27 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import Login from "./Pages/Login"
-import Register from "./Pages/Register"
+import Login from "./User/Views/Login"
+import Register from "./User/Views/Register"
 import Home from "./Pages/Home"
 import NotFound from "./Pages/NotFound"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import { CookiesProvider, useCookies } from 'react-cookie'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants"
 
-function App() {
-  const [cookies, setCookie, removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN])
+export default function App() {
+  const [, , removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN])
 
-  function Logout() {
-
+  function cleanCookies() {
     removeCookie(ACCESS_TOKEN)
     removeCookie(REFRESH_TOKEN)
+  }
+
+  function Logout() {
+    cleanCookies()
     return <Navigate to="/login" />
   }
 
   function RegisterAndLogout() {
-
-    removeCookie(ACCESS_TOKEN)
-    removeCookie(REFRESH_TOKEN)
+    cleanCookies()
     return <Register />
   }
 
@@ -42,5 +43,3 @@ function App() {
     </CookiesProvider>
   )
 }
-
-export default App
