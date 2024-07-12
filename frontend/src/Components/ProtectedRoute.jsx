@@ -11,6 +11,12 @@ export default function ProtectedRoute({ children }) {
 
     useEffect(() => {
         auth().catch(() => setIsAuthenticated(false));
+
+        const intervalId = setInterval(() => {
+            auth().catch(() => setIsAuthenticated(false));
+        }, 1800000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const refreshToken = async () => {
