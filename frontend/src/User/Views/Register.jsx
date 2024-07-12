@@ -1,10 +1,10 @@
-import Form from "../Components/UserForm";
+import Form from "../Components/UserRegisterForm";
 import { Link } from "react-router-dom";
 
 export default function Register() {
     return (
         <div>
-            <Form route="/api/user/register/" method="register" />
+            <Form />
             <br />
             <Link to="/login">
                 <button>Login</button>

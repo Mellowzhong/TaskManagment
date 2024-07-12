@@ -1,10 +1,10 @@
-import Form from "../Components/UserForm";
+import Form from "../Components/UserLoginForm";
 import { Link } from "react-router-dom";
 
 export default function Login() {
     return (
         <div>
-            <Form route="/api/token/" method="login" />
+            <Form />
             <br />
             <Link to="/register">
                 <button>Register</button>

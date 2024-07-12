@@ -1,27 +1,36 @@
 import { useCookies } from 'react-cookie'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants"
 import Register from "../User/Views/Register"
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
+import { useEffect } from 'react'
 
-export function Logout({ cleanCookies }) {
+function useCleanCookies() {
     const [, , removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN])
 
-    function cleanCookies() {
+    return () => {
         removeCookie(ACCESS_TOKEN)
         removeCookie(REFRESH_TOKEN)
     }
+}
 
-    return <Navigate to="/login" />
+export function Logout() {
+    const cleanCookies = useCleanCookies()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        cleanCookies()
+        navigate('/login')
+    }, [cleanCookies, navigate])
+
+    return null
 }
 
 export function RegisterAndLogout() {
-    const [, , removeCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN])
+    const cleanCookies = useCleanCookies()
 
-    function cleanCookies() {
-        removeCookie(ACCESS_TOKEN)
-        removeCookie(REFRESH_TOKEN)
-    }
+    useEffect(() => {
+        cleanCookies()
+    }, [cleanCookies])
 
-    cleanCookies()
     return <Register />
 }

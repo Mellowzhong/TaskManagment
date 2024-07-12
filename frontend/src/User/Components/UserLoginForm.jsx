@@ -4,7 +4,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-export default function Form({ route, method }) {
+export default function Form() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [cookies, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
@@ -13,8 +13,8 @@ export default function Form({ route, method }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await api.post(route, { username, password });
-            if (response.status === 200 && method === "login") {
+            const response = await api.post("/api/token/", { username, password });
+            if (response.status === 200) {
                 setCookie(ACCESS_TOKEN, response.data.access, { path: '/' });
                 setCookie(REFRESH_TOKEN, response.data.refresh, { path: '/' });
 
@@ -27,11 +27,9 @@ export default function Form({ route, method }) {
         }
     };
 
-    const tittle = method === "login" ? "Login" : "Register"
-
     return (
         <form onSubmit={handleSubmit}>
-            <h1>{tittle}</h1>
+            <h1>Login</h1>
             <label>
                 Username:
                 <input
@@ -56,7 +54,7 @@ export default function Form({ route, method }) {
             </label>
             <br />
             <button type="submit">
-                {tittle}
+                Login
             </button>
         </form>
     );
