@@ -1,29 +1,21 @@
 import React, { useState } from "react";
-import api from "../../api";
+import { postNote } from "../Services/NoteServices";
 
-
-export default function NoteForm() {
+export default function NoteForm({ getListOfNotes }) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    const getNotes = async () => {
-        api
-            .get("api/notes/")
-            .then((res) => res.data)
-            .then((data) => setNotes(data))
-            .catch((err) => console.error(err));
-    };
-
     const createNote = async (e) => {
         e.preventDefault();
-        api
-            .post("api/notes/", { title, content })
-            .then((res) => {
-                if (res.status === 201) alert("Note created");
-                else alert("Error creating note");
-                getNotes();
-            })
-            .catch((err) => console.error(err));
+        const response = await postNote(title, content);
+        if (response.success) {
+            alert("Note created");
+            await getListOfNotes();
+            setTitle("");
+            setContent("");
+        } else {
+            alert("Error creating note");
+        }
     };
 
     return <div>
@@ -37,6 +29,7 @@ export default function NoteForm() {
                     required
                 />
             </label>
+            <br />
             <label>
                 Content:
                 <textarea
@@ -45,6 +38,7 @@ export default function NoteForm() {
                     required
                 />
             </label>
+            <br />
             <button type="submit">Create</button>
         </form>
     </div>

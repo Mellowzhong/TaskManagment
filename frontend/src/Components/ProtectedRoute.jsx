@@ -10,14 +10,14 @@ export default function ProtectedRoute({ children }) {
     const [cookies, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
 
     useEffect(() => {
-        auth().catch(() => setIsAuthenticated(false))
+        auth().catch(() => setIsAuthenticated(false));
     }, []);
 
     const refreshToken = async () => {
         const refreshToken = cookies[REFRESH_TOKEN];
 
         try {
-            const response = await api.post("/api/token/refresh", {
+            const response = await api.post("/api/token/refresh/", {
                 refresh: refreshToken,
             });
             if (response.status === 200) {
