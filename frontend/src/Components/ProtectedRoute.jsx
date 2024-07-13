@@ -1,6 +1,6 @@
 import api from '../api'
+import { getExpiration } from '../Utilities/Decoded';
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants'
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
@@ -45,9 +45,9 @@ export default function ProtectedRoute({ children }) {
             setIsAuthenticated(false);
             return;
         }
-        const decoded = jwtDecode(token);
-        const tokenExpiration = decoded.exp;
+        const tokenExpiration = getExpiration(token);
         const currentTime = Date.now() / 1000;
+
         if (tokenExpiration < currentTime) {
             await refreshToken();
         } else {
