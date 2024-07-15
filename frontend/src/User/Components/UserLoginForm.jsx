@@ -28,34 +28,39 @@ export default function Form() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
-            <label>
-                Username:
-                <input
-                    id="username"
-                    autoComplete="username"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="username"
-                />
-            </label>
-            <br />
-            <label>
-                Password:
-                <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="password"
-                />
-            </label>
-            <br />
-            <button type="submit">
-                Login
-            </button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                <fieldset className="userForm">
+                    <legend>
+                        <h1>Login</h1>
+                    </legend>
+                    <label>
+                        <p>Username:</p>
+                        <input
+                            id="username"
+                            autoComplete="username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="username"
+                        />
+                    </label>
+                    <label>
+                        <p>Password:</p>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="password"
+                        />
+                    </label>
+                    <br />
+                    <button type="submit">
+                        Login
+                    </button>
+                </fieldset>
+            </form >
+        </>
     );
 }

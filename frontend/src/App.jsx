@@ -5,6 +5,7 @@ import ProtectedRoute from "./Components/ProtectedRoute"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { Logout, RegisterAndLogout } from "./Utilities/Logout"
 import { CookiesProvider } from 'react-cookie'
+import "./Styles/UserForm.css";
 
 export default function App() {
 

@@ -10,6 +10,16 @@ export default function Note() {
         getListOfNotes();
     }, []);
 
+    const showNoteForm = () => {
+        const dialog = document.getElementById("noteModal");
+        dialog.showModal();
+    }
+
+    const closeNoteForm = () => {
+        const dialog = document.getElementById("noteModal");
+        dialog.close();
+    }
+
     const getListOfNotes = async () => {
         const response = await getAllNotes();
         if (response.success) setNotes(response.data);
@@ -27,16 +37,19 @@ export default function Note() {
     };
 
     return (
-        <div>
-            <h1>Create a note</h1>
-            <NoteForm getListOfNotes={getListOfNotes} />
-            <br />
-            <div>
-                <h1>Notes</h1>
+        <article>
+            <h2>Create a note</h2>
+            <dialog id="noteModal">
+                <NoteForm getListOfNotes={getListOfNotes} />
+                <button onClick={closeNoteForm} >Close</button>
+            </dialog>
+            <button onClick={showNoteForm} >Create a new note</button>
+            <h2>Notes</h2>
+            <section>
                 {notes.map((note) => (
                     <NoteShow key={note.id} note={note} onDelete={delNote} />
                 ))}
-            </div>
-        </div>
+            </section>
+        </article>
     );
 }

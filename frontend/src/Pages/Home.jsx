@@ -26,14 +26,14 @@ export default function Home() {
     }, [cookies]);
 
     return (
-        <div>
-            <div>
-                <p>Hello {user ? user.first_name : ''}</p>
+        <article>
+            <section>
+                <h1>Hello {user ? user.first_name : ''}</h1>
                 <Link to="/logout">
                     <button>Logout</button>
                 </Link>
-            </div>
+            </section>
             <Note />
-        </div>
+        </article>
     );
 }

@@ -1,0 +1,28 @@
+body{
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+p{
+    margin-top: -10px;
+}
+
+.userForm{
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    align-items: center;
+}
+
+.noteForm{
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    align-items: center;
+}

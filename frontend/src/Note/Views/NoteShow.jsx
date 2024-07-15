@@ -4,11 +4,13 @@ export default function Note({ note, onDelete }) {
     const formatDate = new Date(note.created_at).toLocaleDateString("es-US");
 
     return (
-        <div>
-            <h2>{note.title}</h2>
+        <section>
+            <h3>{note.title}</h3>
             <p>{note.content}</p>
-            <p>{formatDate}</p>
+            <div>
+                <time>{formatDate}</time>
+            </div>
             <button onClick={() => onDelete(note.id)}>Delete</button>
-        </div>
+        </section>
     );
 }

@@ -20,26 +20,27 @@ export default function NoteForm({ getListOfNotes }) {
 
     return <div>
         <form onSubmit={createNote}>
-            <label>
-                Title:
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
-            </label>
-            <br />
-            <label>
-                Content:
-                <textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    required
-                />
-            </label>
-            <br />
-            <button type="submit">Create</button>
+            <fieldset className="noteForm">
+                <legend>Note Info</legend>
+                <label>
+                    <p>Title:</p>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    <p>Content:</p>
+                    <textarea
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        required
+                    />
+                </label>
+                <button type="submit">Create</button>
+            </fieldset>
         </form>
     </div>
 }
