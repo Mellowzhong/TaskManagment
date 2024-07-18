@@ -4,7 +4,7 @@ function Note({ note, onDelete }) {
     const formatDate = new Date(note.created_at).toLocaleDateString("es-US");
 
     return (
-        <section>
+        <section className="note-body">
             <h3>{note.title}</h3>
             <p>{note.content}</p>
             <div>

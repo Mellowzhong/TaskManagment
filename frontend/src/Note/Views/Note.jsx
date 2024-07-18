@@ -36,19 +36,21 @@ export default function Note() {
     };
 
     return (
-        <article>
-            <h2>Create a note</h2>
-            <dialog ref={dialogRef}>
-                <NoteForm getListOfNotes={getListOfNotes} />
-                <button onClick={closeNoteForm}>Close</button>
-            </dialog>
-            <button onClick={showNoteForm}>Create a new note</button>
-            <h2>Notes</h2>
-            <section>
+        <>
+            <section className="create-note">
+                <h2>Create a note</h2>
+                <dialog ref={dialogRef}>
+                    <NoteForm getListOfNotes={getListOfNotes} />
+                    <button onClick={closeNoteForm}>Close</button>
+                </dialog>
+                <button className="show-note-form-button" onClick={showNoteForm}>Create a new note</button>
+            </section>
+            <h2 className="show-notes-tittle">Notes</h2>
+            <section className="show-notes">
                 {notes.map((note) => (
                     <NoteShow key={note.id} note={note} onDelete={delNote} />
                 ))}
             </section>
-        </article>
+        </>
     );
 }
