@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
 import Note from "../Note/Views/Note";
 import { Link } from "react-router-dom";
 import { ACCESS_TOKEN } from '../constants';
 import { useCookies } from 'react-cookie';
 import { getUserId } from "../Utilities/Decoded";
 import { getUser } from "../User/Services/UserServices";
+import { useEffect, useState } from "react";
 
 export default function Home() {
     const [cookies] = useCookies([ACCESS_TOKEN]);
@@ -30,10 +30,12 @@ export default function Home() {
             <section>
                 <h1>Hello {user ? user.first_name : ''}</h1>
                 <Link to="/logout">
-                    <button>Logout</button>
+                    <button className="logout-button">Logout</button>
                 </Link>
             </section>
-            <Note />
+            <section>
+                <Note />
+            </section>
         </article>
     );
 }

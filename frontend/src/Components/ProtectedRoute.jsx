@@ -2,24 +2,15 @@ import api from '../api'
 import { getExpiration } from '../Utilities/Decoded';
 import { Navigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useCookies } from 'react-cookie';
+import PropTypes from 'prop-types';
 
 export default function ProtectedRoute({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [cookies, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
 
-    useEffect(() => {
-        auth().catch(() => setIsAuthenticated(false));
-
-        const intervalId = setInterval(() => {
-            auth().catch(() => setIsAuthenticated(false));
-        }, 1800000);
-
-        return () => clearInterval(intervalId);
-    }, []);
-
-    const refreshToken = async () => {
+    const refreshToken = useCallback(async () => {
         const refreshToken = cookies[REFRESH_TOKEN];
 
         try {
@@ -36,9 +27,9 @@ export default function ProtectedRoute({ children }) {
             console.log(error);
             setIsAuthenticated(false);
         }
-    };
+    }, [cookies, setCookie]);
 
-    const auth = async () => {
+    const auth = useCallback(async () => {
         const token = cookies[ACCESS_TOKEN];
 
         if (!token) {
@@ -53,7 +44,17 @@ export default function ProtectedRoute({ children }) {
         } else {
             setIsAuthenticated(true);
         }
-    }
+    }, [cookies, refreshToken]);
+
+    useEffect(() => {
+        auth().catch(() => setIsAuthenticated(false));
+
+        const intervalId = setInterval(() => {
+            auth().catch(() => setIsAuthenticated(false));
+        }, 1800000);
+
+        return () => clearInterval(intervalId);
+    }, [auth]);
 
     if (isAuthenticated === null) {
         return <div>Loading...</div>
@@ -61,3 +62,7 @@ export default function ProtectedRoute({ children }) {
 
     return isAuthenticated ? children : <Navigate to="/login" />
 }
+
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
+};

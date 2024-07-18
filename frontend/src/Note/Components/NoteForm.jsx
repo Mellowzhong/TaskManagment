@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { postNote } from "../Services/NoteServices";
-
+import PropTypes from "prop-types";
 export default function NoteForm({ getListOfNotes }) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -45,3 +45,6 @@ export default function NoteForm({ getListOfNotes }) {
     </div>
 }
 
+NoteForm.propTypes = {
+    getListOfNotes: PropTypes.func.isRequired,
+};

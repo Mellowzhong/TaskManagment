@@ -1,6 +1,6 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Note({ note, onDelete }) {
+function Note({ note, onDelete }) {
     const formatDate = new Date(note.created_at).toLocaleDateString("es-US");
 
     return (
@@ -14,3 +14,15 @@ export default function Note({ note, onDelete }) {
         </section>
     );
 }
+
+Note.propTypes = {
+    note: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        created_at: PropTypes.string.isRequired,
+    }).isRequired,
+    onDelete: PropTypes.func.isRequired,
+};
+
+export default Note;

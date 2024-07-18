@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 export default function Form() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [cookies, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
+    const [, setCookie] = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -52,10 +52,9 @@ export default function Form() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="password"
+                            placeholder="*************"
                         />
                     </label>
-                    <br />
                     <button type="submit">
                         Login
                     </button>

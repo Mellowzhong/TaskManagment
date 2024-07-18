@@ -1,23 +1,22 @@
 import NoteShow from "../Views/NoteShow";
 import NoteForm from "../Components/NoteForm";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getAllNotes, deleteNote } from "../Services/NoteServices";
 
 export default function Note() {
     const [notes, setNotes] = useState([]);
+    const dialogRef = useRef(null);
 
     useEffect(() => {
         getListOfNotes();
     }, []);
 
     const showNoteForm = () => {
-        const dialog = document.getElementById("noteModal");
-        dialog.showModal();
+        dialogRef.current.showModal();
     }
 
     const closeNoteForm = () => {
-        const dialog = document.getElementById("noteModal");
-        dialog.close();
+        dialogRef.current.close();
     }
 
     const getListOfNotes = async () => {
@@ -39,11 +38,11 @@ export default function Note() {
     return (
         <article>
             <h2>Create a note</h2>
-            <dialog id="noteModal">
+            <dialog ref={dialogRef}>
                 <NoteForm getListOfNotes={getListOfNotes} />
-                <button onClick={closeNoteForm} >Close</button>
+                <button onClick={closeNoteForm}>Close</button>
             </dialog>
-            <button onClick={showNoteForm} >Create a new note</button>
+            <button onClick={showNoteForm}>Create a new note</button>
             <h2>Notes</h2>
             <section>
                 {notes.map((note) => (

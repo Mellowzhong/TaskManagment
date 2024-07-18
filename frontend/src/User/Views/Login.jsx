@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 
 export default function Login() {
     return (
-        <div>
+        <article>
             <Form />
-            <br />
             <Link to="/register">
                 <button>Register</button>
             </Link>
-        </div>
+        </article>
     );
 }
