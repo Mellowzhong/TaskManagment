@@ -39,16 +39,17 @@ export default function Note() {
         <>
             <section className="create-note">
                 <h2>Create a note</h2>
-                <dialog ref={dialogRef}>
-                    <NoteForm getListOfNotes={getListOfNotes} />
-                    <button onClick={closeNoteForm}>Close</button>
+                <dialog className="dialog-note" ref={dialogRef}>
+                    <section className="dialog-note">
+                        <NoteForm getListOfNotes={getListOfNotes} closeForm={closeNoteForm} />
+                    </section>
                 </dialog>
                 <button className="show-note-form-button" onClick={showNoteForm}>Create a new note</button>
             </section>
             <h2 className="show-notes-tittle">Notes</h2>
             <section className="show-notes">
                 {notes.map((note) => (
-                    <NoteShow key={note.id} note={note} onDelete={delNote} />
+                    <NoteShow key={note.id} note={note} onDelete={delNote} getListOfNotes={getListOfNotes} />
                 ))}
             </section>
         </>

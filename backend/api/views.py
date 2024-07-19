@@ -26,6 +26,13 @@ class NoteDelete(generics.DestroyAPIView):
     def get_queryset(self):
         return Note.objects.filter(author=self.request.user)
 
+class NoteUpdate(generics.UpdateAPIView):
+    serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Note.objects.filter(author=self.request.user)
+
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

@@ -54,11 +54,12 @@ button{
 
 .show-note-form-button{
     width: 100px;
-
 }
 
 .show-notes-tittle{
     margin: 10px;
+    text-align: center;
+    text-decoration: underline;
 }
 
 .show-notes{
@@ -73,4 +74,9 @@ button{
     border-width: 2px;
     border-style: solid;
     border-color: black;
+    text-align: center;
+}
+
+.note-tittle{
+    text-decoration: underline;
 }
