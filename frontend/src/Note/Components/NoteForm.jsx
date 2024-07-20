@@ -34,9 +34,9 @@ export default function NoteForm({ getListOfNotes, closeForm, noteId, passTittle
     }
 
     return (
-        <div>
-            <form onSubmit={isEditing ? updateNote : createNote}>
-                <fieldset className="noteForm">
+        <>
+            <form className="note-form" onSubmit={isEditing ? updateNote : createNote}>
+                <fieldset>
                     <legend>Note Info</legend>
                     <label>
                         <p>Title:</p>
@@ -61,13 +61,13 @@ export default function NoteForm({ getListOfNotes, closeForm, noteId, passTittle
                     </button>
                 </fieldset>
             </form>
-        </div>
+        </>
     );
 }
 
 NoteForm.propTypes = {
     getListOfNotes: PropTypes.func.isRequired,
-    closeForm: PropTypes.func.isRequired,
+    closeForm: PropTypes.func,
     noteId: PropTypes.number,
     passTittle: PropTypes.string,
     passContent: PropTypes.string,

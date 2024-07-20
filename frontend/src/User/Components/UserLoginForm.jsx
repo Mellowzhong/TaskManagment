@@ -32,7 +32,7 @@ export default function Form() {
             <form onSubmit={handleSubmit}>
                 <fieldset className="userForm">
                     <legend>
-                        <h1>Login</h1>
+                        Login
                     </legend>
                     <label>
                         <p>Username:</p>

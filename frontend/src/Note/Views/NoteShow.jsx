@@ -19,14 +19,22 @@ function NoteShow({ note, onDelete, getListOfNotes }) {
                 />
             ) : (
                 <section className="note-body">
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <h3 className='note-tittle'>{note.title}</h3>
-                    <p>{note.content}</p>
-                    <div>
-                        <time>{formatDate}</time>
-                    </div>
-                    <button onClick={() => onDelete(note.id)}>Delete</button>
+                    <fieldset>
+                        <legend>Note Info</legend>
+                        <p>Title:</p>
+                        <h3 className='note-tittle'>
+                            {note.title}
+                        </h3>
+                        <p>Content:</p>
+                        <p className='note-content'>{note.content}</p>
+                        <div>
+                            <time>{formatDate}</time>
+                        </div>
+                        <button onClick={() => onDelete(note.id)}>Delete</button>
+                        <button onClick={() => setIsEditing(true)}>Edit</button>
+                    </fieldset>
                 </section>
+
             )}
         </>
     );
