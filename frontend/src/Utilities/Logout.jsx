@@ -1,7 +1,7 @@
 import { useCookies } from 'react-cookie'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants"
 import Register from "../User/Views/Register"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 
 function useCleanCookies() {
