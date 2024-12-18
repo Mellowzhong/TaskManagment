@@ -26,14 +26,14 @@ export default function Home() {
     }, [cookies]);
 
     return (
-        <article className="home-page">
-            <section className="welcome-message">
+        <article>
+            <section>
                 <h1>Hello {user ? user.first_name : ''}</h1>
                 <Link to="/logout">
-                    <button className="logout-button">Logout</button>
+                    <button >Logout</button>
                 </Link>
             </section>
-            <section className="note">
+            <section >
                 <Note />
             </section>
         </article>

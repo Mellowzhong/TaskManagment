@@ -35,7 +35,7 @@ export default function NoteForm({ getListOfNotes, closeForm, noteId, passTittle
 
     return (
         <>
-            <form className="note-form" onSubmit={isEditing ? updateNote : createNote}>
+            <form onSubmit={isEditing ? updateNote : createNote}>
                 <fieldset>
                     <legend>Note Info</legend>
                     <label>
