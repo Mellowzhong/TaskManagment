@@ -55,5 +55,5 @@ A RESTful API built with Django and a React frontend.
 2. Start the React development server:
     ```bash
     cd frontend
-    npm start
+    npm run dev
     ```
