@@ -1,42 +1,51 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import NoteForm from '../Components/NoteForm';
+import { useRef } from 'react';
+import ModalNote from '../Components/ModalNote';
 
 function NoteShow({ note, onDelete, getListOfNotes }) {
-    const [isEditing, setIsEditing] = useState(false);
-    const formatDate = new Date(note.created_at).toLocaleDateString("es-US")
+    const formatDate = new Date(note.created_at).toLocaleDateString("es-US");
+    const dialogRef = useRef(null);
+
+    const showNoteDetail = () => {
+        dialogRef.current.showModal();
+    };
+
+    const closeNoteDetail = () => {
+        dialogRef.current.close();
+    };
 
     return (
-        <>
-            {isEditing ? (
-                <NoteForm
-                    getListOfNotes={getListOfNotes}
-                    noteId={note.id}
-                    passTittle={note.title}
-                    passContent={note.content}
-                    isEditing={isEditing}
-                    setIsEditing={setIsEditing}
-                />
-            ) : (
-                <section className="note-body">
-                    <fieldset>
-                        <legend>Note Info</legend>
-                        <p>Title:</p>
-                        <h3 className='note-tittle'>
-                            {note.title}
-                        </h3>
-                        <p>Content:</p>
-                        <p className='note-content'>{note.content}</p>
-                        <div>
-                            <time>{formatDate}</time>
-                        </div>
-                        <button onClick={() => onDelete(note.id)}>Delete</button>
-                        <button onClick={() => setIsEditing(true)}>Edit</button>
-                    </fieldset>
-                </section>
+        <section>
+            <fieldset className="grid grid-cols-1 border border-black py-4 px-8 rounded-md">
+                <legend>Note Info</legend>
+                <div className="grid text-center">
+                    <span className="font-bold">Title</span>
+                    <h3 className="note-tittle">{note.title}</h3>
+                </div>
+                <div className="grid text-center">
+                    <span className="font-bold">Created</span>
+                    <time className="block">{formatDate}</time>
+                </div>
+                {/* Botón para abrir el modal */}
+                <button
+                    onClick={showNoteDetail}
+                    className="p-2 my-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                >
+                    View details
+                </button>
+            </fieldset>
 
-            )}
-        </>
+            {/* Modal */}
+            <dialog ref={dialogRef} className="rounded-md p-4">
+                <ModalNote
+                    note={note}
+                    onDelete={onDelete}
+                    getListOfNotes={getListOfNotes}
+                    formatDate={formatDate}
+                    closeNoteDetail={closeNoteDetail}
+                />
+            </dialog>
+        </section>
     );
 }
 

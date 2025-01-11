@@ -31,37 +31,65 @@ export default function NoteForm({ getListOfNotes, closeForm, noteId, passTittle
         } else {
             alert("Error updating note");
         }
-    }
+    };
 
     return (
-        <>
-            <form onSubmit={isEditing ? updateNote : createNote}>
-                <fieldset>
-                    <legend>Note Info</legend>
-                    <label>
-                        <p>Title:</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <form
+                onSubmit={isEditing ? updateNote : createNote}
+                className="bg-white rounded-lg shadow-lg w-full max-w-md p-6"
+            >
+                {/* Header */}
+                <div className="flex justify-between items-center border-b pb-4">
+                    <h2 className="text-xl font-bold text-gray-800">
+                        {isEditing ? "Edit Note" : "Create Note"}
+                    </h2>
+                    <button
+                        onClick={() => (isEditing ? setIsEditing(false) : closeForm())}
+                        className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                        aria-label="Close"
+                    >
+                        ✕
+                    </button>
+                </div>
+
+                {/* Body */}
+                <fieldset className="mt-4 space-y-4">
+                    <label className="block">
+                        <span className="block text-sm font-medium text-gray-700">Title:</span>
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
+                            className="mt-1 p-2 block w-full rounded-md border border-black shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
                         />
                     </label>
-                    <label>
-                        <p>Content:</p>
+
+                    <label className="block">
+                        <span className="block text-sm font-medium text-gray-700">Content:</span>
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                             required
+                            rows="5"
+                            className="mt-1 p-2 block w-full rounded-md border border-black shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
                         />
                     </label>
-                    <button type="submit">{isEditing ? "Update Info" : "Create"}</button>
-                    <button type="button" onClick={() => isEditing ? setIsEditing(false) : closeForm()}>
-                        Cancel
-                    </button>
                 </fieldset>
+
+                {/* Footer */}
+                <div className="mt-6 flex justify-center space-x-3">
+                    {/* Submit Button */}
+                    <button
+                        type="submit"
+                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                    >
+                        {isEditing ? "Update Info" : "Create"}
+                    </button>
+                </div>
             </form>
-        </>
+        </div>
     );
 }
 
